@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+<title>글 쓰기</title>
+
+</head>
+<body>
+
+<div layout:fragment="contents">
+
+    <form method="post" th:action=@{/board/delete/}>
+    <input type="hidden" name="boardNo" th:value=${board.boardNo}>
+
+    <fieldset>
+    <legend class="text-center header">글 삭제하기</legend>
+
+    <div class="board-read-header">
+    <h5><label>  정말로 지우시겠습니까???  </label></h5><br/>
+    <h5><label>【글 제목】 : [[${board.title}]]  </label></h5>
+    </div>
+    <hr/>
+
+    <div class="form-group py-2">
+    	<input type="submit" value="완전 삭제하기" class="btn btn-danger">
+    </div>
+
+    </fieldset>
+    </form>
+
+	<div>
+		<button class="btn btn-info py-2 my-2" type="button" onclick="location.href='/board/list'">목록으로 가기</button>
+		<button class="btn btn-warning py-2 my-2" type="button" th:onclick="'location.href=\'' + @{/board/read/{boardNo}(boardNo=${board.boardNo})} +'\';'">돌아가기 : [[${board.boardNo}]] 번 게시글</button>
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layout}">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+
+</head>
+<body>
+<div layout:fragment="contents">
+	<form method="post" th:action=@{/auth/login}>
+		<h1 class="h3 mb-3 fw-normal text-center">로그인 해주세요!</h1>
+
+		<div class="mb-3 col-8">
+			<label class="form-label">아이디(이메일형식)</label>
+			<input type="text" name="memberId" class="form-control" aria-describedby="emailHelp">
+			<div id="emailHelp" class="form-text">저희는 절대 회원님의 정보를 유출하지 않습니다.</div>
+		</div>
+
+		<div class="mb-3 col-8">
+			<label class="form-label"> 비밀번호 </label>
+			<input class="form-control" type="password" name="password">
+		</div>
+
+		<div class="nav justify-content-center col-8">
+			<input class="btn btn-primary" type="submit" value="로그인 도전!">
+		</div>
+
+	</form>
+
+	<hr/>
+	<div>
+		<button class="btn btn-secondary py-2 my-2" type="button" onclick="location.href='javascript:history.back();'">이전 페이지로 돌아가기</button>
+		<button class="btn btn-info py-2 my-2" type="button" onclick="location.href='/board/list'">목록으로 돌아가기</button>
+	</div>
+
+</div>
+</body>
+</html>

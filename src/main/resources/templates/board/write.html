@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+<title>글쓰기</title>
+</head>
+<body>
+<div layout:fragment="contents">
+
+    <form method="post" th:action=@{/board/write} class="form-horizontal" th:object="${boardForm}">
+    <fieldset>
+    	<legend class="text-center header">What is MUSIC?!</legend>
+
+    	<input th:if="${not #strings.isEmpty(session?.member?.memberId)}" type="hidden" name="memberId" th:value="${session.member.memberId}" />
+
+        <div class="form-group py-2">
+            <div class="col-md-8">
+                <h5><label>닉네임</label></h5>
+                <input id="nickName" name="nickName" type="text" placeholder="닉네임을 입력하세요" th:field="*{nickName}" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h5><label> 음악장르 </label></h5>
+            <select class="form-select" name="musicGenre">
+                <option th:each="musicGenre : ${musicGenres}" th:value="${musicGenre.value}" th:selected="${musicGenre.value} == *{musicGenre}" th:inline="text">[[${musicGenre.name}]]</option>
+            </select>
+        </div>
+
+
+    <div class="form-group py-2">
+      <div class="col-md-8">
+        <h5><label>제목</label></h5>
+        <input id="title" name="title" type="text" placeholder="제목을 입력하세요" th:field="*{title}" class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group py-2">
+      <div class="col-md-8">
+        <h5><label> 내용 </label></h5>
+        <textarea name="contents" placeholder="내용을 입력하세요" th:field="*{contents}" class="form-control" rows="6"></textarea>
+      </div>
+    </div>
+    <hr/>
+    <div class="form-group py-2">
+       <input type="submit" value="작성하기" class="btn btn-primary">
+    </div>
+    </fieldset>
+    </form>
+
+    <div>
+        <button class="btn btn-info" type="button" onclick="location.href='/board/list'">목록으로 가기</button>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+</head>
+<body>
+
+<div layout:fragment="contents">
+
+<article class="blog-post">
+    <div class="board-read-header">
+        <h1 class="blog-post-title">[[${board.nickName}]]</h1>
+    <h1 class="blog-post-title">[[${board.title}]]</h1>
+
+    <hr/>
+
+    <p class="blog-post-meta mt-2">만든 시간 :[[${board.createdTime}]] / 최종 수정 : [[${board.updatedTime}]]</p>
+
+    </div>
+    <hr/>
+    <div class="mt-4 mb-5 px-2 py-2" style="width: 100%;">
+        <div th:text="${board.contents}"></div>
+    </div>
+</article>
+<div>
+<button class="btn btn-info" type="button" onclick="location.href='/board/list'">목록으로 가기</button>
+<button class="btn btn-warning" type="button" th:onclick="'location.href=\'' + @{/board/update/{boardNo}(boardNo=${board.boardNo})} +'\';'">수정하기</button>
+<button class="btn btn-danger" type="button" th:onclick="'location.href=\'' + @{/board/delete/{boardNo}(boardNo=${board.boardNo})} +'\';'">삭제하기</button>
+</div>
+
+
+
+</div>
+</body>
+</html>

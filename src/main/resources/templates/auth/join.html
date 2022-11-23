@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+
+</head>
+<body>
+
+<div layout:fragment="contents">
+
+    <form method="post" th:action=@{/auth/join}>
+    <h1 class="h3 mb-3 fw-normal text-center">회원가입하세요</h1>
+
+    <div class="mb-3 col-12 row">
+        <label class="form-label">아이디 (E-mail)</label>
+    	<div class="col">
+    	    <input type="text" id="memberId" placeholder="test@test.com 형식으로 해주세요." name="memberId" class="form-control" aria-describedby="emailHelp">
+    	</div>
+    	<div class="col">
+    	    <button id="id-duplicate-check" class="btn btn-info btn-sm" type="button">아이디 중복 체크(기능작동x)</button>
+    	</div>
+
+    </div>
+
+	<div class="mb-3 col-8">
+		<label class="form-label"> 비밀번호 </label>
+		<input class="form-control" placeholder="영문+숫자 조합 4~16자리 해주세요." type="password" name="password" id="password">
+	</div>
+
+    <div class="nav justify-content-center col-8">
+    	<input class="btn btn-success" type="button" value="회원가입 도전!" onclick="joinMember(this.form);">
+    </div>
+    </form>
+
+    <hr/>
+
+	<div>
+		<button class="btn btn-secondary py-2 my-2" type="button" onclick="location.href='javascript:history.back();'">이전 페이지로 가기</button>
+		<button class="btn btn-info py-2 my-2" type="button" onclick="location.href='/board/list'">목록으로 가기</button>
+	</div>
+
+<script type="text/javascript" th:inline="javascript">
+
+var baseApi  = "http://localhost:8080"
+var authApi = baseApi+"/auth"
+
+
+
+$(document).on("click", '#id-duplicate-check', function(event) {
+	event.preventDefault();
+
+	var memberId = $("#memberId").val();
+	if (memberId === "") {
+		alert("이메일 입력해주세요");
+		$('#memberId').focus();
+		return;
+	}
+
+	$.ajax({
+		url: authApi+"/checkId",
+		method : 'POST',
+		contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+		data: {'memberId' : memberId},
+
+	});
+});
+
+
+function joinMember(form) {
+
+
+
+	var memberId = form.memberId.value;
+	var password = form.password.value;
+
+	if (memberId === "") {
+		alert("이메일을 입력해주세요");
+		$('#memberId').focus();
+		return;
+	}
+
+	if (password === "") {
+		alert("비밀번호를 입력해주세요");
+		$('#password').focus();
+		return;
+	}
+
+	form.submit();
+}
+
+</script>
+
+</div>
+</body>
+</html>

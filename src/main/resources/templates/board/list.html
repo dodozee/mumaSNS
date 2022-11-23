@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+</head>
+<body>
+
+	<div layout:fragment="contents">
+		<div class="nav justify-content-end px-10 pt-3">
+	        <button class="btn btn-primary" id="write-board" type="button" onclick="location.href='/board/write'">
+	        게시글 작성하기
+	        </button>
+	    </div>
+	    <hr/>
+	    <div>
+		    <table class="table" border="1">
+		    <thead class="table-dark">
+		    <tr>
+		        <th>번호</th>
+		        <th>닉네임</th>
+				<th>장르</th>
+		        <th>제목</th>
+		        <th>작성시간</th>
+		        <th>수정시간</th>
+		        <th>좋아요 수</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <tr th:each="board: ${pageInfo.getContent()}">
+		        <td th:text="${board.boardNo}"></td>
+				<td><a th:href="@{/board/read/{nickName}(nickName=${board.nickName})}">[[${board.nickName}]]</a></td>
+				<td th:text="${board.musicGenre}==1 ? 'Ballad' : 'Rap'"></td>
+		        <td><a th:href="@{/board/read/{boardNo}(boardNo=${board.boardNo})}">[[${board.title}]]</a></td>
+		        <td th:text="${board.createdTime}"></td>
+		        <td th:text="${board.updatedTime}"></td>
+		        <td th:text="${board.likes}"></td>
+		    </tr>
+		    </tbody>
+		    </table>
+	    </div>
+
+	    <hr/>
+
+	    <!-- paging -->
+	    <div id="paging-container" class="pagination nav justify-content-center px-4">
+	            <div th:class="${pageInfo.first} ? 'page-item disabled' : 'page-item'">
+	                <span class="page-link" th:if="${pageInfo.first}">이전</span>
+	                <a class="page-link" th:if="${not pageInfo.first}" th:href="@{/board/list(page=1)}">이전</a>
+	            </div>
+	            <div th:class="${p} != ${pageInfo.number+1} ? 'page-item' : 'page-item disabled'" th:each="p : ${#numbers.sequence(1, (pageInfo.totalPages))}">
+	                <span class="page-link" th:if="${p} == ${pageInfo.number+1}" th:text="'['+${p}+']&nbsp;'"></span>
+	                <a class="page-link" th:if="${p} != ${pageInfo.number+1}" th:href="@{/board/list(page=${p})}">
+	                    <span th:text="'['+${p}+']'"></span>
+	                </a>
+	            </div>
+	            <div th:class="${pageInfo.last} ? 'page-item disabled' : 'page-item' ">
+	                <span class="page-link"  th:if="${pageInfo.last}">다음</span>
+	                <a class="page-link" th:if="${not pageInfo.last}" th:href="@{/board/list(page=(${pageInfo.totalPages}))}">다음</a>
+	            </div>
+	    </div>
+	</div>
+
+</body>
+</html>

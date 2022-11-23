@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="commonHead">
+
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+
+	<title>MUMA SNS</title>
+
+	<link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet"></link>
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+
+    <!-- CSS setting each page -->
+    <th:block layout:fragment="custom_css"></th:block>
+
+
+</head>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{common/layout}">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, inital-scale=1.0"/>
+<title>에러 떴습니다!!!</title>
+</head>
+<body>
+
+<div layout:fragment="contents">
+
+<div class="board-read-container" style="margin-bottom: 20px; background-color: #fff; border: 1px solid; width: 700px;">
+    <h2>@@@@에러페이지 입니다@@@@ 죄송합니다 빠르게 복구하겠습니다@@@@@@</h2>
+    <div th:if="${not #strings.isEmpty(message)}">
+	    <h2> [[${message}]]	</h2>
+	</div>
+</div>
+<div>
+<button type="button" onclick="location.href='/board/list'">우선 뒤로 후퇴하세요!!</button>
+</div>
+
+<script th:inline="javascript">
+
+
+
+</script>
+
+</div>
+</body>
+
+</html>
